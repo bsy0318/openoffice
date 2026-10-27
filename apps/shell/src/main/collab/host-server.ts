@@ -288,17 +288,19 @@ export class CollabHostServer {
     }
   }
 
-  /** a wrong PIN, or a handshake abandoned halfway: either way one guess spent */
-  private miss(address: string): DeniedReason {
-    const verdict = this.attempts.miss(address)
-    if (verdict.replacePins) this.replaceAllPins()
-    return verdict.locked ? 'locked' : 'pin'
+  /**
+   * One guess at a PIN. The challenge lets a client check its guess without
+   * answering, so the guess is spent before the challenge goes out, even when
+   * many connections arrive at once; a right PIN gets it back (`admit`).
+   */
+  private spend(address: string): void {
+    if (this.attempts.miss(address).replacePins) this.replaceAllPins()
   }
 
   private accept(socket: Socket): void {
     const address = addressOf(socket)
     // what the handshake has reached: one answer per room offered, then the admitted guest
-    let offered: Array<{ room: Room; handshake: HostHandshake }> | null = null
+    let offered: Array<{ room: Room; pin: string; handshake: HostHandshake }> | null = null
     let joined: { room: Room; peerId: string; channel: SecureChannel } | null = null
     let finished = false
     socket.setNoDelay(true)
@@ -326,10 +328,11 @@ export class CollabHostServer {
       }
       if (hello.protocol !== WIRE_PROTOCOL) return deny('version')
       if (this.attempts.isLocked(address)) return deny('locked')
+      this.spend(address)
       offered = []
       for (const room of [...this.rooms].slice(0, MAX_OFFERS)) {
         const handshake = hostHandshake(room.pin, hello.share)
-        if (handshake) offered.push({ room, handshake })
+        if (handshake) offered.push({ room, pin: room.pin, handshake })
       }
       if (offered.length === 0) {
         socket.destroy()
@@ -340,18 +343,21 @@ export class CollabHostServer {
 
     const onConfirm = (
       frame: Frame,
-      candidates: Array<{ room: Room; handshake: HostHandshake }>,
+      candidates: Array<{ room: Room; pin: string; handshake: HostHandshake }>,
     ) => {
       const confirm = frame.type === FRAME.confirm ? confirmOf(frame.payload) : null
       const chosen = confirm && confirm.offer >= 0 ? candidates[confirm.offer] : undefined
       const channel = chosen && confirm ? chosen.handshake.confirm(confirm.proof) : null
-      if (!chosen || !channel || chosen.room.closed) return deny(this.miss(address))
+      // a PIN replaced since the challenge went out lets no one in
+      if (!chosen || !channel || chosen.room.closed || chosen.room.pin !== chosen.pin) {
+        return deny(this.attempts.isLocked(address) ? 'locked' : 'pin')
+      }
+      this.attempts.admit(address)
       if (chosen.room.guests.size >= (this.options.maxGuests ?? DEFAULT_MAX_GUESTS)) {
         return deny('full')
       }
       finished = true
       clearTimeout(handshakeTimer)
-      this.attempts.admit(address)
       joined = { room: chosen.room, channel, peerId: chosen.room.admit(socket, channel) }
     }
 
@@ -387,8 +393,6 @@ export class CollabHostServer {
     socket.on('close', () => {
       clearTimeout(handshakeTimer)
       if (joined) joined.room.drop(joined.peerId)
-      // a guest that saw the challenge and walked away without answering spent its guess
-      else if (offered && !finished) this.miss(address)
     })
   }
 }

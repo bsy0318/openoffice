@@ -13,11 +13,14 @@ import {
   encodeFrame,
   encodeJsonFrame,
   relayPayload,
+  encodeHello,
   FRAME,
   FrameError,
   FrameReader,
   PRE_AUTH_MAX_FRAME,
+  deniedOf,
 } from '../src/main/collab/wire'
+import { guestHandshake } from '../src/main/collab/secure'
 import {
   MAX_MISSES_BEFORE_NEW_PINS,
   MAX_MISSES_PER_ADDRESS,
@@ -131,6 +134,16 @@ describe('collab PINs', () => {
     }
     expect(replace).toBe(true)
   })
+
+  it('gives a right PIN its guess back, so joining never brings new PINs closer', () => {
+    const attempts = new PinAttempts()
+    for (let i = 0; i < MAX_MISSES_BEFORE_NEW_PINS - 2; i++) attempts.miss(`b${i}`)
+    attempts.miss('guest')
+    attempts.admit('guest')
+    expect(attempts.isLocked('guest')).toBe(false)
+    expect(attempts.miss('c').replacePins).toBe(false)
+    expect(attempts.miss('d').replacePins).toBe(true)
+  })
 })
 
 describe('collab host and guest', () => {
@@ -152,6 +165,31 @@ describe('collab host and guest', () => {
     await expect(join(room, wrong)).rejects.toMatchObject({ reason: 'locked' })
     // even the right PIN waits out the lock
     await expect(join(room)).rejects.toBeInstanceOf(CollabJoinError)
+  })
+
+  it('spends a guess per challenge, so opening many connections at once gets no more', async () => {
+    const { room } = await openRoom()
+    const answers = await Promise.all(
+      Array.from({ length: MAX_MISSES_PER_ADDRESS + 3 }, async () => {
+        const socket = createConnection({ host: '127.0.0.1', port: room.port })
+        await new Promise((resolve) => socket.once('connect', resolve))
+        const reader = new FrameReader(() => PRE_AUTH_MAX_FRAME)
+        const first = new Promise<{ type: number; payload: Buffer }>((resolve) =>
+          socket.on('data', (chunk: Buffer) => {
+            const [frame] = reader.push(chunk)
+            if (frame) resolve(frame)
+          }),
+        )
+        // each one asks before any of them has answered or gone
+        socket.write(encodeHello(guestHandshake('000000').share))
+        return { socket, frame: await first }
+      }),
+    )
+    for (const { socket } of answers) socket.destroy()
+    const challenges = answers.filter(({ frame }) => frame.type === FRAME.challenge)
+    const refused = answers.filter(({ frame }) => frame.type === FRAME.denied)
+    expect(challenges).toHaveLength(MAX_MISSES_PER_ADDRESS)
+    expect(refused.map(({ frame }) => deniedOf(frame.payload))).toEqual(Array(3).fill('locked'))
   })
 
   it('relays between host and guests by peer id and broadcast', async () => {

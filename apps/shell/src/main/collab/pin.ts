@@ -57,8 +57,9 @@ export class PinAttempts {
     return { locked: entry.lockedUntil > 0, replacePins }
   }
 
-  /** a right PIN clears that address's misses, not the overall count */
+  /** a right PIN clears that address's misses and gives back the guess it spent overall */
   admit(address: string): void {
     this.misses.delete(address)
+    this.total = Math.max(0, this.total - 1)
   }
 }
