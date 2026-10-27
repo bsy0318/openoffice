@@ -22,6 +22,7 @@ import { hwpToText } from '@genoffice/file-parse'
 import { getUiLang } from '@genoffice/i18n'
 import { registerHwpAttachmentIpc } from './attachments-ipc'
 import { atomicWriteFile } from './atomic-write'
+import { registerHwpCollabIpc } from './collab'
 import { badJob, printJobToPdf, printJobToPrinter } from './print-document'
 import { tm } from './dialog-strings'
 import { fieldKindsOf } from './field-kinds'
@@ -353,6 +354,7 @@ function registerHwpIpc(): void {
   registerHwpAttachmentIpc()
   installHwpRecovery(recoveryHost)
   registerHwpRecoveryIpc()
+  registerHwpCollabIpc(recoveryHost.saveBaseOf)
 
   ipcMain.handle(HWP_CHANNELS.consumePending, (e) => {
     noteHwpPathConsumed(e.sender.id)
