@@ -1,5 +1,5 @@
 /**
- * The guest side of LAN co-editing (decision 0072): one TCP connection to a
+ * The guest side of LAN co-editing (decision 0073): one TCP connection to a
  * host, admitted by PIN through the handshake in `secure.ts`; the PIN itself
  * never leaves this PC. `connectToHost` resolves only once the host has
  * welcomed the guest and handed over the base file; anything else rejects

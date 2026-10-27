@@ -1,5 +1,5 @@
 /**
- * Co-editing (decision 0072) as the PDF main process sees it. A guest tab
+ * Co-editing (decision 0073) as the PDF main process sees it. A guest tab
  * shows a temp copy the shell opened as an untitled copy; it never saves,
  * and the copy is rewritten with each file the host saves so the guest's
  * page and object addresses stay those of the host's file.

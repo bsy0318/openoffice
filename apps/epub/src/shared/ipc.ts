@@ -125,7 +125,7 @@ export const EPUB_CHANNELS = {
   /** invoke(path) → `AttachmentImageResult` */
   filesReadImage: 'epub:files-read-image',
 
-  // ---- co-editing (decision 0072) ----
+  // ---- co-editing (decision 0073) ----
   /** invoke → `Uint8Array | null`: what a save would write now, the copy people who join open */
   collabBase: 'epub:collab-base',
   /** invoke(`EpubCollabGuestState`): this tab joined someone's book, or that session ended */
@@ -667,7 +667,7 @@ export interface EpubAiApi {
   imageSearch(query: string, maxResults?: number): Promise<ImageSearchResult>
 }
 
-// ---- co-editing (decision 0072) ----
+// ---- co-editing (decision 0073) ----
 
 /**
  * A guest tab's book is the temp copy the shell opened for it:

@@ -816,7 +816,7 @@ function registerEpubIpc(): void {
     handlers.write(e.sender.id, request),
   )
 
-  // ---- co-editing (decision 0072) ----
+  // ---- co-editing (decision 0073) ----
 
   ipcMain.handle(EPUB_CHANNELS.collabBase, async (e): Promise<Uint8Array | null> => {
     const session = sessionByWc.get(e.sender.id)

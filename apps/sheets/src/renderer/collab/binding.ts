@@ -1,5 +1,5 @@
 /**
- * One shared workbook (LAN co-editing, decision 0072), wired to Univer.
+ * One shared workbook (LAN co-editing, decision 0073), wired to Univer.
  *
  * Every peer applies its own edits at once; the mutations an action produced
  * go out as one op and the host puts all ops in one order (OpLog). Remote ops

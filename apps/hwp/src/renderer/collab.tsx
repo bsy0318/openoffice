@@ -1,5 +1,5 @@
 /**
- * LAN co-editing in the Hangul editor (decision 0072), as watch mode: the person
+ * LAN co-editing in the Hangul editor (decision 0073), as watch mode: the person
  * sharing edits and everyone who joins watches. Merging two people's edits would
  * need a change inside the editor, so the host's document goes out whole after
  * each pause in its work (collab-flow.ts), and a guest's editor shows it with its

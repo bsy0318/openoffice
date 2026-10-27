@@ -1,5 +1,5 @@
 /**
- * Co-editing (decision 0072) as the main process sees an EPUB view,
+ * Co-editing (decision 0073) as the main process sees an EPUB view,
  * Electron-free.
  *
  * A guest's tab is a window onto the book of the person sharing it: its

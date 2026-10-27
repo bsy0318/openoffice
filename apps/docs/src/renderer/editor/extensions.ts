@@ -243,6 +243,7 @@ import { InactiveSelectionExtension } from './inactive-selection'
 import { FieldCodesExtension } from './field-codes'
 import { AiQueueAnchorsExtension } from './ai-queue-anchors'
 import { CheckboxToggleExtension } from './checkbox-toggle'
+import { OutlineViewExtension } from './outline-view'
 import { PageGapNavExtension } from './page-gap-nav'
 import { TrailingTableExitExtension } from './trailing-table-exit'
 import { moveBlocks } from './move-block'
@@ -6871,6 +6872,61 @@ export const TextboxParagraph = Node.create({
   },
 })
 
+/**
+ * Ordered-list renumbering inside a textbox sub-editor. Counters run per box
+ * (the parse side computes them per box too — the document-wide sequence is out
+ * of reach from here), restarting at each level-0 item of the same numId. The
+ * pass runs on every doc change but only dispatches when a marker text actually
+ * moved, and its own dispatches carry a meta guard so it never loops.
+ */
+export const TextboxListRenumber = Extension.create({
+  name: 'textboxListRenumber',
+  addProseMirrorPlugins() {
+    return [
+      new Plugin({
+        key: new PluginKey('textboxListRenumber'),
+        appendTransaction: (transactions, _oldState, newState) => {
+          const ours = transactions.some((tr) => tr.getMeta('textboxListRenumber'))
+          const structural = transactions.some((tr) => tr.docChanged)
+          if (!structural || ours) return null
+          const counters = new Map<string, number>()
+          const fixes: Array<{ pos: number; text: string }> = []
+          newState.doc.forEach((node, pos) => {
+            const marker = node.attrs.listMarker as TextboxListMarker | null
+            if (!marker || marker.kind !== 'ordered' || marker.numId == null) return
+            const key = `${marker.numId}:${marker.ilvl ?? 0}`
+            const below = Array.from(counters.keys()).filter((k) =>
+              k.startsWith(`${marker.numId}:`),
+            )
+            // a deeper or shallower item restarts the levels below it (Word)
+            if (marker.ilvl === 0 || !counters.has(key)) {
+              for (const k of below) {
+                if (Number(k.split(':')[1]) > (marker.ilvl ?? 0)) counters.delete(k)
+              }
+            }
+            const next = (counters.get(key) ?? 0) + 1
+            counters.set(key, next)
+            const text = `${next}.`
+            if (marker.text !== text) fixes.push({ pos, text })
+          })
+          if (fixes.length === 0) return null
+          const tr = newState.tr
+          tr.setMeta('textboxListRenumber', true)
+          for (const fix of fixes) {
+            const node = newState.doc.nodeAt(fix.pos)
+            if (!node) continue
+            tr.setNodeMarkup(fix.pos, undefined, {
+              ...node.attrs,
+              listMarker: { ...(node.attrs.listMarker as TextboxListMarker), text: fix.text },
+            })
+          }
+          return tr
+        },
+      }),
+    ]
+  },
+})
+
 /** shared with the main editor: same mark names, so ribbon commands route 1:1 */
 export const textboxSubExtensions = [
   Node.create({ name: 'doc', topNode: true, content: 'block+' }),
@@ -6897,6 +6953,7 @@ export const textboxSubExtensions = [
   TextStyleMark,
   FormatOffClearExtension,
   CommentMark,
+  TextboxListRenumber,
   UndoRedo,
 ]
 
@@ -6956,7 +7013,7 @@ export const AutoLinkOnDelimiter = Extension.create({
 })
 
 /**
- * Another person's edit in a shared document (decision 0072), or the first
+ * Another person's edit in a shared document (decision 0073), or the first
  * render of one: their editor already recorded it as a tracked change and
  * added any trailing paragraph, so this one must not do it again.
  */
@@ -7029,6 +7086,7 @@ export const editorExtensions = [
   InactiveSelectionExtension,
   AiQueueAnchorsExtension,
   CheckboxToggleExtension,
+  OutlineViewExtension,
   PageGapNavExtension,
   TrailingTableExitExtension,
   Gapcursor,

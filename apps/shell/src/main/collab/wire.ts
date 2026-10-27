@@ -1,5 +1,5 @@
 /**
- * The LAN wire format between two app main processes (decision 0072).
+ * The LAN wire format between two app main processes (decision 0073).
  *
  * A frame is a 4-byte big-endian length, one type byte, then the payload.
  * The handshake (HELLO, CHALLENGE, CONFIRM, DENIED) travels in the clear and

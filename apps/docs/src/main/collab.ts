@@ -1,5 +1,5 @@
 /**
- * The Word editor's main-process side of co-editing (decision 0072). A guest
+ * The Word editor's main-process side of co-editing (decision 0073). A guest
  * tab says so here, and the save and recovery handlers refuse it behind the
  * renderer's own refusal: during a session the host's file is the document.
  * A guest whose copy keeps its pictures out of the bytes (a lazily opened

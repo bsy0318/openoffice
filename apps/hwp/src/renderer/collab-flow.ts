@@ -1,5 +1,5 @@
 /**
- * Watch mode for LAN co-editing in the Hangul editor (decision 0072).
+ * Watch mode for LAN co-editing in the Hangul editor (decision 0073).
  *
  * The document lives in the engine inside the editor frame, and the editor has
  * no way to merge two people's edits, so only the person sharing edits. After

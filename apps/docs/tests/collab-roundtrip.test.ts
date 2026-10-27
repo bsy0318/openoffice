@@ -1,5 +1,5 @@
 /**
- * A shared Word document travels as a Yjs XML fragment (decision 0072). The
+ * A shared Word document travels as a Yjs XML fragment (decision 0073). The
  * save matches blocks by docxIndex and attribute signatures, so the document
  * the other peers rebuild from the fragment must save exactly like the
  * editor's own: untouched, and after the same edits.

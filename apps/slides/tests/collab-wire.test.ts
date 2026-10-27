@@ -1,6 +1,6 @@
 // @vitest-environment node
 /**
- * Co-editing op stream (decision 0072): a transaction applied on one PC is
+ * Co-editing op stream (decision 0073): a transaction applied on one PC is
  * rewritten so another PC's executor applies it to the same slides and
  * elements. Two decks opened from the same bytes stand in for two PCs — the
  * parse-time ids differ between them as they would across processes.

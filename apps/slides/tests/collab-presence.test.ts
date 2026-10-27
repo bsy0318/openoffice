@@ -1,5 +1,5 @@
 /**
- * Co-editing presence (decision 0072): a person's selection goes out as
+ * Co-editing presence (decision 0073): a person's selection goes out as
  * fractions of the slide so every peer draws it at its own zoom, and what
  * arrives from a peer is checked before it is drawn.
  */

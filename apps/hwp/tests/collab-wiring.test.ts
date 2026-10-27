@@ -3,7 +3,7 @@ import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 /**
- * Co-editing wiring in the Hangul tab (decision 0072). The timing and the key rules are
+ * Co-editing wiring in the Hangul tab (decision 0073). The timing and the key rules are
  * in collab-flow.ts; this pins where a live guest's tab stands down: no save, no recovery
  * copy, no unsaved state of its own, no AI panel; and the shared copy's main channel.
  */

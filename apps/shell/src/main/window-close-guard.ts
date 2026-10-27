@@ -68,7 +68,8 @@ export function installShellCloseGuard(
     const dirtyMarkdown = withoutLiveGuests(manager.dirtyMarkdownTabs())
     const dirtyHtml = withoutLiveGuests(manager.dirtyHtmlTabs())
     const dirtyMindmap = withoutLiveGuests(manager.dirtyMindmapTabs())
-    const dirtyHwp = withoutLiveGuests(manager.dirtyHwpTabs())
+    // a clean document with an open memo editor must be asked too: its text is not saved
+    const dirtyHwp = withoutLiveGuests(manager.dirtyOrMemoHwpTabs())
     const dirtyEpub = withoutLiveGuests(manager.dirtyEpubTabs())
     const dirtySlides = withoutLiveGuests(manager.dirtySlidesTabs())
     const docsTabs = withoutLiveGuests(manager.docsTabs())

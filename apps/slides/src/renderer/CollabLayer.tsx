@@ -1,5 +1,5 @@
 /**
- * Where the other people in a co-editing session are (decision 0072): their
+ * Where the other people in a co-editing session are (decision 0073): their
  * selections over the canvas with their names, and a mark on the rail
  * thumbnail of the slide each one is on. Plain DOM beside the Konva stage, so
  * it never reaches an export, a thumbnail image or the saved file.

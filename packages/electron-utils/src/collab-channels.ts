@@ -1,6 +1,6 @@
 /// LAN co-editing: the contract between an editor renderer and the shell's
 /// collaboration service. The shell only relays opaque sync messages between
-/// PCs; it never reads document content (decision 0072).
+/// PCs; it never reads document content (decision 0073).
 
 export const COLLAB_CHANNELS = {
   available: 'collab:available',

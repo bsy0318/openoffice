@@ -1,5 +1,5 @@
 /**
- * Co-editing in the EPUB editor (decision 0072).
+ * Co-editing in the EPUB editor (decision 0073).
  *
  * - The host shares what a save would write now. Its tab keeps working on
  *   its own book; guests' reads and edits arrive as requests and run through

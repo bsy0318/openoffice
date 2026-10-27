@@ -1,5 +1,5 @@
 /**
- * Co-editing in the Markdown editor (decision 0072). The block editor's
+ * Co-editing in the Markdown editor (decision 0073). The block editor's
  * content is shared through the TipTap binding; the frontmatter block, which
  * lives beside the editor, is one shared value (last writer wins).
  *

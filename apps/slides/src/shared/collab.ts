@@ -1,5 +1,5 @@
 /**
- * LAN co-editing in the slides editor (decision 0072): the contract between
+ * LAN co-editing in the slides editor (decision 0073): the contract between
  * the tab's renderer, which carries the shared session, and the main process,
  * which holds the deck. Main captures every applied transaction at the
  * journal funnel and hands it to the renderer as a wire op; the renderer puts

@@ -1,5 +1,5 @@
 /**
- * One copy of a shared map (decision 0072). What this person changes leaves
+ * One copy of a shared map (decision 0073). What this person changes leaves
  * as ops on the host-ordered stream (`OpLog`); what other people change comes
  * in through the same reconciling the editor uses for its own edits.
  *

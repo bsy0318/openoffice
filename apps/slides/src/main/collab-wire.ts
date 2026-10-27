@@ -1,5 +1,5 @@
 /**
- * The slides op stream on the wire (co-editing, decision 0072). A transaction
+ * The slides op stream on the wire (co-editing, decision 0073). A transaction
  * the executor applied here is rewritten so another PC's executor applies it
  * to the same slides and elements:
  *

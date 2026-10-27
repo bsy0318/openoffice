@@ -1,5 +1,5 @@
 /**
- * Co-editing in the slides editor (decision 0072). The deck lives in the main
+ * Co-editing in the slides editor (decision 0073). The deck lives in the main
  * process, so this hook carries the shared session for it: edits main
  * captured go onto the host-ordered op stream, other people's ops go back to
  * main to be applied, a guest that fell out of step reloads the host's bytes,

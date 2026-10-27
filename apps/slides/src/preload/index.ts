@@ -102,6 +102,7 @@ import type {
   MasterEditFillOp,
   MasterEditStrokeOp,
   MasterDeleteElementOp,
+  MasterAddElementOp,
   ExportImagesOp,
   SavePictureOp,
   ExportPdfOp,
@@ -223,7 +224,7 @@ const api: SlidesApi = {
   consumeHeadlessExport: () => ipcRenderer.invoke('slides:consume-headless-export'),
   headlessExportDone: (result: { ok: boolean; error?: string }) =>
     ipcRenderer.send('slides:headless-export-done', result),
-  newBlank: (fitWidthPx) => ipcRenderer.invoke('slides:new-blank', fitWidthPx),
+  newBlank: (fitWidthPx, size) => ipcRenderer.invoke('slides:new-blank', fitWidthPx, size),
   landGeneratedPages: (
     pageMarkers: string[],
     fitWidthPx: number,
@@ -312,6 +313,7 @@ const api: SlidesApi = {
   masterEditStroke: (op: MasterEditStrokeOp) => ipcRenderer.invoke('slides:master-edit-stroke', op),
   masterDeleteElement: (op: MasterDeleteElementOp) =>
     ipcRenderer.invoke('slides:master-delete-element', op),
+  masterAddElement: (op: MasterAddElementOp) => ipcRenderer.invoke('slides:master-add-element', op),
   editFill: (op: EditFillOp) => ipcRenderer.invoke('slides:edit-fill', op),
   editStroke: (op: EditStrokeOp) => ipcRenderer.invoke('slides:edit-stroke', op),
   flipElements: (op: FlipElementOp) => ipcRenderer.invoke('slides:flip-elements', op),
@@ -582,7 +584,7 @@ contextBridge.exposeInMainWorld('projectApi', projectApi)
 // The shell's split panes: which pane this view is, and focus requests for it
 contextBridge.exposeInMainWorld('aiOfficeSplit', splitPaneBridge(ipcRenderer))
 
-// LAN co-editing (decision 0072): the shell relays this tab's session
+// LAN co-editing (decision 0073): the shell relays this tab's session
 contextBridge.exposeInMainWorld(COLLAB_BRIDGE_KEY, collabBridge())
 
 // ...and the deck in the main process joins it through these

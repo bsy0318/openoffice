@@ -1,5 +1,5 @@
 /**
- * Co-editing in the Excel editor (decision 0072): the one hook App calls.
+ * Co-editing in the Excel editor (decision 0073): the one hook App calls.
  * It shares what a save would write now, binds the op stream once a
  * workbook is on screen, and answers what a session allows (saves, ribbon
  * commands, AI runs) and what the close guard should count.

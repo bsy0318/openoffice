@@ -1,5 +1,5 @@
 /**
- * Co-editing in the mind map editor (decision 0072): the shared `useCollab`
+ * Co-editing in the mind map editor (decision 0073): the shared `useCollab`
  * hook, told what this map is and how to bind it (`MapCollabBinding` for the
  * ops, `MapPresence` for where everyone is).
  *

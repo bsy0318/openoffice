@@ -30,7 +30,7 @@
 - 프로젝트 폴더의 스킬(결정 0064): 지문과 폴더별 허용 기록(`src/main/agent/project-skills.ts`, `app-settings.json`의 `agentProjectSkills`), 시작 화면의 "이 폴더의 스킬" 칸(`AgentWindow.tsx`, 문구 `i18n/strings-agent-project-skills.ts`). 세션 묶음에 넣을지는 `index.ts`의 `buildSkills`가 시작 때 지문을 다시 만들어 정한다.
 - 키 봉인(결정 0063): `src/main/ai-secrets.ts`(safeStorage 코덱, 시작 때 평문 키 옮기기, `--reveal-ai-secrets`). 인터넷 도구 확인 창(결정 0062): `src/main/outbound-confirm.ts`.
 - 에이전트 창의 스킬과 웹(결정 0049): 세션에 실을 스킬과 양식 후보(`src/main/agent/agent-skills.ts`), 스킬 카드·설치 제안(`AgentSkillCard.tsx`, `AgentInstallProposal.tsx`), Codex 웹 검색·명령의 인터넷 접속의 시작 화면 선택과 Claude 웹 허락 표시(`renderer/src/agent/agent-web.ts`, 문구 `i18n/agent-web/`; 프로젝트 폴더별 기억은 `main/app-settings.ts`의 `agentProjectPrefs`를 `agent-window.ts`가 읽고 쓴다). 스킬을 바꾸는 IPC는 메인 창에서 온 요청만 받는데(`canManage`), 에이전트 창에는 깃허브 설치 미리보기에 필요한 `importGitHub`·`cancelImport`·`install` 셋만 더 열려 있다, 이전 사용자 한 번 안내(`i18n/agent-skills/`).
-- 같은 네트워크 공동 작업의 뒷단(결정 0072, `src/main/collab/`): 편집기 화면의 `collab:*` 창구(`collab-service.ts`), 호스트 TCP 서버와 PIN 오답 제한(`host-server.ts`, `pin.ts`), 손님 연결(`guest-link.ts`), PIN 키 교환과 프레임 암호화(`secure.ts`), 프레임 형식(`wire.ts`), 같은 네트워크 알림(`discovery.ts`, `lan.ts`), 손님 사본의 파일 이름(`file-name.ts`). 손님 탭은 양식 사본과 같은 길(`openTemplateCopyTab`)로 연다. 화면 쪽 부품은 `packages/collab`이다.
+- 같은 네트워크 공동 작업의 뒷단(결정 0073, `src/main/collab/`): 편집기 화면의 `collab:*` 창구(`collab-service.ts`), 호스트 TCP 서버와 PIN 오답 제한(`host-server.ts`, `pin.ts`), 손님 연결(`guest-link.ts`), PIN 키 교환과 프레임 암호화(`secure.ts`), 프레임 형식(`wire.ts`), 같은 네트워크 알림(`discovery.ts`, `lan.ts`), 손님 사본의 파일 이름(`file-name.ts`). 손님 탭은 양식 사본과 같은 길(`openTemplateCopyTab`)로 연다. 화면 쪽 부품은 `packages/collab`이다.
 
 ## 맡지 않는 것 (경계)
 
@@ -94,7 +94,7 @@
 
 - **에이전트 세션은 사람이 시작한 창에만 속한다.** 채널은 그 창의 webContents만 받고, 세션은 그 창이 닫히면 끝난다. 경고 확인과 폴더 검사와 연결 확인은 화면이 아니라 뒷단이 시작할 때마다 다시 한다. 창에는 오류 문장을 보내지 않고 종류만 보낸다(`agentEventView`).
 - **세션 MCP 서버의 도구는 `AGENT_MCP_TOOL_NAMES`뿐이다.** 탭 닫기, 자체 편집 세션, 창 없는 파일 만들기를 더하지 않는다. 읽기는 가린 자리를 `{{이름}}`으로 내보내고(`withholdingSlides`, `withholdingOpenDocuments`), 가린 내용이 있는 PPT는 고치지 않는다. 연동의 앱 안 MCP 서버는 출력이 바깥에 약속된 것이라 이 처리를 하지 않는다(결정 0016).
-- **공동 작업 뒷단은 공유 내용을 열어 보지 않는다.** 화면끼리의 메시지는 이름표로만 나르고, 손님에게 건네는 바이트는 호스트 화면이 낸 그대로다. TCP 서버는 공유가 하나라도 있는 동안만 연다. PIN은 보내지 않고 SPAKE2 키 교환으로만 확인하며, 키 교환 뒤의 모든 프레임은 ChaCha20-Poly1305로 봉인한다(`secure.ts`, 결정 0072). 키 교환을 마치기 전의 연결은 작은 핸드셰이크 프레임만 보낼 수 있다. Electron 내장 암호 모듈에는 ChaCha20-Poly1305가 없으니 `node:crypto`로 바꾸지 않는다. 손님 사본의 이름은 다른 PC에서 온 값이라 `collabFileName`으로 줄인다. 세션 중인 손님 탭은 닫기와 종료 확인에서 빠진다(`isLiveCollabGuest`). 새 닫기 경로를 만들면 이 판정을 함께 넣는다.
+- **공동 작업 뒷단은 공유 내용을 열어 보지 않는다.** 화면끼리의 메시지는 이름표로만 나르고, 손님에게 건네는 바이트는 호스트 화면이 낸 그대로다. TCP 서버는 공유가 하나라도 있는 동안만 연다. PIN은 보내지 않고 SPAKE2 키 교환으로만 확인하며, 키 교환 뒤의 모든 프레임은 ChaCha20-Poly1305로 봉인한다(`secure.ts`, 결정 0073). 키 교환을 마치기 전의 연결은 작은 핸드셰이크 프레임만 보낼 수 있다. Electron 내장 암호 모듈에는 ChaCha20-Poly1305가 없으니 `node:crypto`로 바꾸지 않는다. 손님 사본의 이름은 다른 PC에서 온 값이라 `collabFileName`으로 줄인다. 세션 중인 손님 탭은 닫기와 종료 확인에서 빠진다(`isLiveCollabGuest`). 새 닫기 경로를 만들면 이 판정을 함께 넣는다.
 
 ## 이 모듈의 방식
 
@@ -104,7 +104,7 @@
 - 에디터는 `configure<앱>Runtime({ preloadPath, rendererUrl, rendererFile, … })`으로 자기 빌드 결과의 위치를 주입받는다. 공용 `ai:*` 핸들러는 `registerAiIpc()` 한 번으로 모든 창(문서, 시트, 홈)을 담당한다. 시트 뷰를 `createSheetsView({ includeAiHandlers: false })`로 만드는 이유다.
 - 첫 실행 안내의 연결 단계는 `@genoffice/ui`의 연결 도우미(`AiConnectGuide`, 결정 0047)다. 무료 길에는 `FreeAiCards`를 그 자리에 넘기고(`freeContent`), 무료 연결이 이미 있으면 `freeConnected`로 그 길을 펼친다. 띄우지 못한 설치·로그인의 알림(`connection.failed`)은 고른 길의 카드 아래에 `renderAfterCard`로 나온다. 설정 → AI는 도우미 없이 두 카드를 그대로 둔다.
 - 무료 연결 카드(`FreeAiCards.tsx`, 규칙은 `free-ai-cards.ts`)는 설정 → AI의 "무료로 쓰기"와 첫 실행 안내의 연결 단계에 같은 부품으로 들어간다. 연결·해제·남은 요청 수는 preload의 `connectFreeAi`·`disconnectFreeAi`·`getFreeAiQuota`가 워드 뒷단의 `ai:free-*` 채널을 부르고, 카드는 설정 파일이 바뀐 알림을 받아 다시 읽는다. OpenRouter 키는 이 화면에 오지 않는다.
-- 설정 화면에서 쓰는 AI는 "사용할 AI" 선택 하나로 정해진다. 고급 영역의 제공자 드롭다운은 어느 제공자의 입력란을 보여 줄지만 고른다. 설정은 읽을 때(`readAiSettings`)와 쓸 때(`writeAiSettings`) 모두 `normalizeAiSettings`를 거쳐, 사라진 선택이 다시 저장되지 않는다.
+- 설정 화면에서 쓰는 AI는 "사용할 AI" 선택 하나로 정해진다. 고급 영역의 제공자 드롭다운은 어느 제공자의 입력란을 보여 줄지만 고른다. 그 창의 "이 AI 쓰기"(`advancedPaneUseChoice`)는 저장된 키 제공자를 "사용할 AI"와 같은 값으로 고르는 버튼이고, 저장만으로는 고르지 않는다. 설정은 읽을 때(`readAiSettings`)와 쓸 때(`writeAiSettings`) 모두 `normalizeAiSettings`를 거쳐, 사라진 선택이 다시 저장되지 않는다.
 - 홈의 질문 패널은 에디터와 같은 보내기 규칙을 쓴다. `askSendGate`(`src/renderer/src/kb-ask-connection.ts`)는 `packages/ui`의 `aiSendGate`가 내린 판단을 그대로 읽는다. 연결 상태나 설정을 아직 모르면 질문을 붙잡았다가(`askHeldStep`) 실행할 수 있게 되면 시작하고, "연결 필요"로 정해지면 버리고 연결 안내를 보인다. 이 패널만의 차이는 하나다. 첫 연결 안내는 홈 화면이 띄우므로, 안내가 떠 있는 동안에는 패널이 보내지 않고 붙잡아 둔 질문도 시작하지 않는다.
 - 첫 연결 안내의 Codex 문장은 `CODEX_MAY_KEEP_HISTORY`로 켜져 있다. 브리지가 대화 이력 파일은 끄지만 Codex가 자체 진단 로그를 남기고, 앱은 그것을 읽을 수도 막을 수도 없기 때문이다.
 - 문자열은 세 군데에 있다. 렌더러 사전 `src/renderer/src/strings.ts`(언어 21개가 한 파일에 있고 `zh`가 키 집합을 정한다), 메인 프로세스의 인라인 사전(`src/main/index.ts`의 `tMain`), 도움말 `i18n/help/topics/<id>.<lang>.md`. 도움말 항목은 `help-registry.ts`의 `HELP_TOPICS`에 등록해야 보이고, 모든 언어 파일의 구조는 영어 원본과 같아야 한다(`npm run check:help-langs`).

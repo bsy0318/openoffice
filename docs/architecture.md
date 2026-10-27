@@ -152,7 +152,7 @@ EPUB 편집기 화면 ── epub:read-chapter·apply-edits·save 등 ──→ 
 - 양식: 양식 스킬을 부르면 뒷단(`templateTabs`)이 양식 사본을 그 형식 편집기의 제목 없는 새 탭으로 열고, 넘겨주기(`queueSkillHandoffFor`/`takeSkillHandoff`)로 요청과 칩을 그 탭의 AI 창에 넘긴다. 받는 창은 보내기 전 문지기를 거쳐 실행한다.
 - 에이전트 창: 세션을 시작할 때 켜진 스킬이 묶음으로 복사된다(위 "에이전트 모드의 흐름"). 세션 MCP 서버의 `propose_skill`·`propose_skill_install`은 창에 카드와 미리보기를 띄우기만 한다.
 
-## 같은 네트워크의 공동 작업 (결정 0072)
+## 같은 네트워크의 공동 작업 (결정 0073)
 
 ```
 호스트 PC                                               손님 PC

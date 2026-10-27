@@ -1,5 +1,5 @@
 /**
- * Where a person is in the deck, as co-editing presence (decision 0072): the
+ * Where a person is in the deck, as co-editing presence (decision 0073): the
  * slide by part path (stable on every peer, unlike indexes when slides move)
  * and the selected boxes as fractions of the slide, so peers draw them at any
  * zoom or fit width.

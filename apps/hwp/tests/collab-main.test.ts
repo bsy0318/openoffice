@@ -1,6 +1,6 @@
 // @vitest-environment node
 /**
- * What a shared Hangul document is sent as (main/collab.ts, decision 0072): the
+ * What a shared Hangul document is sent as (main/collab.ts, decision 0073): the
  * editor's export with the corrections a save makes against the file this view
  * opened, without writing anything. Bytes that are not a container of the format
  * are refused.

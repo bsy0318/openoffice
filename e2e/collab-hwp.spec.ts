@@ -1,5 +1,5 @@
 /**
- * LAN co-editing of a Hangul document between two app instances (decision 0072).
+ * LAN co-editing of a Hangul document between two app instances (decision 0073).
  * The Hangul editor shares in watch mode: the person sharing edits, and a guest
  * sees the document live, read-only, with the host's name and page.
  *

@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
 /**
- * LAN co-editing in the shell (decision 0072): the service is registered once,
+ * LAN co-editing in the shell (decision 0073): the service is registered once,
  * a guest's tab opens like a template copy, and every close path lets a live
  * guest go without a save prompt. index.ts needs a running Electron, so the
  * wiring is pinned by reading the source.
@@ -35,7 +35,7 @@ describe('co-editing wiring', () => {
       'dirtyMarkdownTabs',
       'dirtyHtmlTabs',
       'dirtyMindmapTabs',
-      'dirtyHwpTabs',
+      'dirtyOrMemoHwpTabs',
       'dirtyEpubTabs',
       'dirtySlidesTabs',
       'docsTabs',

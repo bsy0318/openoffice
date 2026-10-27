@@ -1,5 +1,5 @@
 /**
- * The host side of LAN co-editing (decision 0072). One TCP listener carries
+ * The host side of LAN co-editing (decision 0073). One TCP listener carries
  * every document this PC shares; a guest names its room by the PIN alone,
  * through the handshake in `secure.ts`, so the PIN never crosses the wire.
  * The listener exists only while something is shared.

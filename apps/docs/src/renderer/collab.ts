@@ -1,5 +1,5 @@
 /**
- * Co-editing in the Word editor (decision 0072). The body is shared through
+ * Co-editing in the Word editor (decision 0073). The body is shared through
  * the TipTap binding; what a docx keeps beside it stays with the host
  * (collab-gate.ts says what that switches off).
  *

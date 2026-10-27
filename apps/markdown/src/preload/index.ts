@@ -259,7 +259,7 @@ contextBridge.exposeInMainWorld('aiOfficeOutbound', outboundBridge())
 // the person's skills: the AI panel's `/` list and skill reads, skill cards (shell main checks each)
 contextBridge.exposeInMainWorld(USER_SKILLS_BRIDGE_KEY, userSkillsBridge())
 contextBridge.exposeInMainWorld('projectApi', projectApi)
-// LAN co-editing (decision 0072): the shell relays this tab's session
+// LAN co-editing (decision 0073): the shell relays this tab's session
 contextBridge.exposeInMainWorld(COLLAB_BRIDGE_KEY, collabBridge())
 
 // open documents dragged from the OS onto this tab as a new shell tab

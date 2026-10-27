@@ -1,5 +1,5 @@
 /**
- * Co-editing in the HTML editor (decision 0072). Every edit here, typed, from
+ * Co-editing in the HTML editor (decision 0073). Every edit here, typed, from
  * the inspector or from the AI, is a patch to the CodeMirror source, so
  * sharing the source text shares the page; the preview follows as usual.
  */

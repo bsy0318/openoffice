@@ -1,5 +1,5 @@
 /**
- * Co-editing on the main side (decision 0072). The deck lives here while the
+ * Co-editing on the main side (decision 0073). The deck lives here while the
  * shared session lives in the tab's renderer, so this module sits between the
  * two: it captures every transaction the journal funnel applies and sends it
  * to the renderer as a wire op, applies other people's ops through the same

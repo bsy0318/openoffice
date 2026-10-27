@@ -1229,7 +1229,7 @@ export class EpubEditController {
     return count
   }
 
-  // ---- co-editing (decision 0072) ----
+  // ---- co-editing (decision 0073) ----
 
   /**
    * Someone else's edit, already made in the book: the screen follows it

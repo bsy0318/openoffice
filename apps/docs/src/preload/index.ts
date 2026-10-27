@@ -29,6 +29,7 @@ import type {
   DocTheme,
   UiTheme,
   ZoteroRendererRequest,
+  MergeOutputRequest,
 } from '../shared/ipc'
 import type { DocFormat } from '../shared/open-file'
 import type { ProjectApi } from '@genoffice/project-store'
@@ -196,6 +197,9 @@ const api: DesktopApi = {
   signalMcpReady: () => ipcRenderer.send('docs:mcp-ready'),
   getRecentFiles: () => ipcRenderer.invoke('docs:recent'),
   pickImage: () => ipcRenderer.invoke('docs:pick-image'),
+  pickMergeDataSource: () => ipcRenderer.invoke('docs:merge-data-source'),
+  writeMergeOutput: (request: MergeOutputRequest) =>
+    ipcRenderer.invoke('docs:merge-output', request),
   fontMetrics: (family: string) => ipcRenderer.invoke('docs:font-metrics', family),
   fontFamilyInfo: (families) => ipcRenderer.invoke('app:font-family-info', families),
   print: (scale?: number, job?: PrintJobOptions) => ipcRenderer.invoke('docs:print', scale, job),
@@ -389,7 +393,7 @@ contextBridge.exposeInMainWorld('aiOfficeSubscription', subscriptionApi)
 // The shell's split panes: which pane this view is, and focus requests for it
 contextBridge.exposeInMainWorld('aiOfficeSplit', splitPaneBridge(ipcRenderer))
 
-// LAN co-editing (decision 0072): the shell relays this tab's session
+// LAN co-editing (decision 0073): the shell relays this tab's session
 contextBridge.exposeInMainWorld(COLLAB_BRIDGE_KEY, collabBridge())
 
 // open documents dragged from the OS onto this tab as a new shell tab

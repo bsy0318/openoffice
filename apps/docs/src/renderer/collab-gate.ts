@@ -1,5 +1,5 @@
 /**
- * What a co-editing session (decision 0072) switches off in the Word editor.
+ * What a co-editing session (decision 0073) switches off in the Word editor.
  *
  * Only the body is shared live. What a docx keeps beside it (comments, notes,
  * headers and footers, sections, styles, list definitions, the theme, ...)

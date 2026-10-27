@@ -1,5 +1,5 @@
 /**
- * Co-editing in the PDF editor (decision 0072). The pending edits are shared
+ * Co-editing in the PDF editor (decision 0073). The pending edits are shared
  * through EditShare (collab-share.ts); this file wires it to a session: the
  * host's saves as new file epochs, a guest's copy following them, where the
  * others are on the pages, and what a session refuses.

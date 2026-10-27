@@ -1,5 +1,5 @@
 /**
- * The PDF editor's shared state in a co-editing session (decision 0072).
+ * The PDF editor's shared state in a co-editing session (decision 0073).
  * Every pending edit already lives in the EditSnapshot buckets; during a
  * session each bucket is mirrored into a Y.Map keyed by item id (field name,
  * widget id or page for the keyed buckets), so peers exchange whole items and

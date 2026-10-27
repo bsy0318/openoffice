@@ -477,7 +477,7 @@ describe('links', () => {
   })
 })
 
-describe('co-editing (decision 0072)', () => {
+describe('co-editing (decision 0073)', () => {
   it('gives the people who join what a save would write, without saving', async () => {
     const { path, contents } = await openBook()
     const original = readFileSync(path)

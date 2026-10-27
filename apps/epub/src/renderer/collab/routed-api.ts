@@ -1,5 +1,5 @@
 /**
- * The editing calls of `window.epubApi`, routed for co-editing (decision 0072).
+ * The editing calls of `window.epubApi`, routed for co-editing (decision 0073).
  *
  * A guest's tab is a window onto the book of the person sharing it: chapter
  * reads and every edit go to the host's tab, which runs them through its own

@@ -1,5 +1,5 @@
 /**
- * LAN co-editing in the shell (decision 0072): the `collab:*` channels every
+ * LAN co-editing in the shell (decision 0073): the `collab:*` channels every
  * editor's preload exposes, wired to the host server, guest links and LAN
  * announcements.
  *

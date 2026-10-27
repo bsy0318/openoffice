@@ -1,6 +1,6 @@
 // @vitest-environment node
 /**
- * Co-editing on the main side (decision 0072): what main captures and when it
+ * Co-editing on the main side (decision 0073): what main captures and when it
  * sends it, the order guard for other people's ops, and what a guest may not
  * do. The deck lives here; the renderer's session is played by the test.
  */

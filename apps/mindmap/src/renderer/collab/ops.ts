@@ -1,5 +1,5 @@
 /**
- * What travels between the copies of a shared map (decision 0072): one op per
+ * What travels between the copies of a shared map (decision 0073): one op per
  * change, keyed by the ids the file holds, so changes to different topics
  * land the same way in whatever order they arrive.
  *

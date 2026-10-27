@@ -263,7 +263,7 @@ export default function App() {
     return session.subscribe(sync)
   }, [session])
 
-  // co-editing on the LAN (decision 0072); a guest's copy is the host's map, never saved here
+  // co-editing on the LAN (decision 0073); a guest's copy is the host's map, never saved here
   const shared = useMapCollab({
     ready: status === 'ready',
     session,

@@ -1,5 +1,5 @@
 /**
- * The encrypted channel between two PCs in a session (decision 0072).
+ * The encrypted channel between two PCs in a session (decision 0073).
  *
  * A six-digit PIN is far too short to be a key: anyone who recorded a
  * handshake keyed by it could try all million PINs offline. So the two sides

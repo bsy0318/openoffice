@@ -1,5 +1,5 @@
 /**
- * Word co-editing over an in-memory relay (decision 0072): two real editors,
+ * Word co-editing over an in-memory relay (decision 0073): two real editors,
  * the host's and a guest's, bound the way the app binds them. Covers what the
  * shared body must keep right for the host's save: remote edits are nobody's
  * tracked change and count as the host's unsaved changes, undo stays per

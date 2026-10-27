@@ -1,5 +1,5 @@
 /**
- * Watch mode for co-editing a Hangul document (renderer/collab-flow.ts, decision 0072).
+ * Watch mode for co-editing a Hangul document (renderer/collab-flow.ts, decision 0073).
  * The host's document goes out whole: only after its work pauses (an export runs on
  * the thread it types on), only when the cheap change mark moved or the AI changed
  * it, and only when the bytes differ from the last ones sent. A guest shows the newest

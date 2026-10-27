@@ -1,5 +1,5 @@
 /**
- * What a shared workbook allows (LAN co-editing, decision 0072). The op
+ * What a shared workbook allows (LAN co-editing, decision 0073). The op
  * stream carries cell values and formats, row and column structure, sheets,
  * filters, rules, names and notes; everything else lives beside it (visuals,
  * tables, pivots, sparklines, links, comments, protection, page setup, the
